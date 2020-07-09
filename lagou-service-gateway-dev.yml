@@ -37,3 +37,6 @@ spring:
             - Path=/api/email/**
           filters:
             - StripPrefix=1
+limiter: 
+  count: 10
+  minutes: 1
