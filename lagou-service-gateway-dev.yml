@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: lagou-cloud-gateway
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    # config客户端配置,和ConfigServer通信，并告知ConfigServer希望获取的配置信息在哪个文件中
+    config:
+      name: lagou-service-code  #配置文件名称
+      profile: dev  #后缀名称
+      label: master #分支名称
+      uri: http://localhost:9006    #ConfigServer配置中心地址
+    gateway:
+      routes: # 路由可以有多个
+        - id: service-user-router
+          uri: lb://lagou-service-user
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1
+
+        - id: service-code-router
+          uri: lb://lagou-service-code
+          predicates:
+            - Path=/api/code/**
+          filters:
+            - StripPrefix=1
+
+        - id: service-email-router
+          uri: lb://lagou-service-email
+          predicates:
+            - Path=/api/email/**
+          filters:
+            - StripPrefix=1
