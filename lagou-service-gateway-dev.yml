@@ -38,5 +38,5 @@ spring:
           filters:
             - StripPrefix=1
 limiter: 
-  count: 10
-  minutes: 1
+  count: 30
+  minutes: 2
